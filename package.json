@@ -30,6 +30,9 @@
     "precommit": "lint-staged"
   },
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "author": "CKSource (http://cksource.com/)",
   "license": "MIT",
   "homepage": "https://github.com/ckeditor/eslint-plugin-ckeditor5-rules",
