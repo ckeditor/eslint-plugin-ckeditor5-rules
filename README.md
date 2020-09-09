@@ -1,6 +1,8 @@
 CKEditor 5 ESLint Plugins
 =========================
 
+[![Build Status](https://travis-ci.org/ckeditor/eslint-plugin-ckeditor5-rules.svg?branch=master)](https://travis-ci.org/ckeditor/eslint-plugin-ckeditor5-rules)
+
 A set of plugins used by the [CKEditor 5](https://ckeditor.com) team for [Eslint](https://eslint.org/) 
 
 By default this plugin is added to our [`eslint-config-ckeditor5`](https://www.npmjs.com/package/eslint-config-ckeditor5) preset. 
