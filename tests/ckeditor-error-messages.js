@@ -14,6 +14,7 @@ const validJSDoc = '/**\n' +
 	' */\n';
 
 const validThrow = 'throw new CKEditorError( \'method-id-is-kebab\', this );\n';
+const validAttachLink = 'console.warn( attachLinkToDocumentation( \'method-id-is-kebab\' ) );\n';
 
 const ruleTester = new RuleTester( { parserOptions: { sourceType: 'module', ecmaVersion: 2018 } } );
 ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require( '../lib/rules/ckeditor-error-message' ), {
@@ -45,7 +46,15 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 		' *\n' +
 		' * @error unexpected-error\n' +
 		' */\n' +
-		'const error = new CKEditorError( err.message, context );\n'
+		'const error = new CKEditorError( err.message, context );\n',
+
+		validJSDoc + validAttachLink,
+
+		// Annotation in other place in the source code (before).
+		validJSDoc +
+		'if ( fooBar ) {\n' +
+		'\t' + validAttachLink +
+		'}'
 	],
 	invalid: [
 		// Deprecated message id with a semicolon after error id.
@@ -85,7 +94,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 				{ messageId: 'invalidMessageFormat' }
 			]
 		},
-		// No @error clause.
 		{
 			code:
 				'/**\n' +
@@ -106,6 +114,28 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 				' * @error some-other-error\n' +
 				' */\n' +
 				'throw new CKEditorError( \'method-id-is-kebab\', this );\n',
+			errors: [
+				{ messageId: 'missingErrorAnnotation' }
+			]
+		},
+
+		// Deprecated message id with a semicolon after error id.
+		{
+			code: validJSDoc +
+				'console.warn( attachLinkToDocumentation( \'method-id-is-kebab: Missing item.\' ) );\n',
+			output: validJSDoc + validAttachLink,
+			errors: [
+				{ messageId: 'invalidMessageFormat' }
+			]
+		},
+
+		// No @error clause.
+		{
+			code:
+				'/**\n' +
+				' * Missing item.\n' +
+				' */\n' +
+				validAttachLink,
 			errors: [
 				{ messageId: 'missingErrorAnnotation' }
 			]
