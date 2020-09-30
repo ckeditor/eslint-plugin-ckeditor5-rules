@@ -14,7 +14,8 @@ const validJSDoc = '/**\n' +
 	' */\n';
 
 const validThrow = 'throw new CKEditorError( \'method-id-is-kebab\', this );\n';
-const validAttachLink = 'console.warn( attachLinkToDocumentation( \'method-id-is-kebab\' ) );\n';
+const validConsoleWarn = 'logWarning( \'method-id-is-kebab\' );\n';
+const validConsoleError = 'logError( \'method-id-is-kebab\' );\n';
 
 const ruleTester = new RuleTester( { parserOptions: { sourceType: 'module', ecmaVersion: 2018 } } );
 ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require( '../lib/rules/ckeditor-error-message' ), {
@@ -48,12 +49,20 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 		' */\n' +
 		'const error = new CKEditorError( err.message, context );\n',
 
-		validJSDoc + validAttachLink,
+		validJSDoc + validConsoleWarn,
 
 		// Annotation in other place in the source code (before).
 		validJSDoc +
 		'if ( fooBar ) {\n' +
-		'\t' + validAttachLink +
+		'\t' + validConsoleWarn +
+		'}' +
+
+		validJSDoc + validConsoleError,
+
+		// Annotation in other place in the source code (before).
+		validJSDoc +
+		'if ( fooBar ) {\n' +
+		'\t' + validConsoleError +
 		'}'
 	],
 	invalid: [
@@ -122,8 +131,18 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 		// Deprecated message id with a semicolon after error id.
 		{
 			code: validJSDoc +
-				'console.warn( attachLinkToDocumentation( \'method-id-is-kebab: Missing item.\' ) );\n',
-			output: validJSDoc + validAttachLink,
+				'logWarning( \'method-id-is-kebab: Missing item.\' );\n',
+			output: validJSDoc + validConsoleWarn,
+			errors: [
+				{ messageId: 'invalidMessageFormat' }
+			]
+		},
+
+		// Deprecated message id with a semicolon after error id.
+		{
+			code: validJSDoc +
+				'logError( \'method-id-is-kebab: Missing item.\' );\n',
+			output: validJSDoc + validConsoleError,
 			errors: [
 				{ messageId: 'invalidMessageFormat' }
 			]
@@ -135,7 +154,7 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 				'/**\n' +
 				' * Missing item.\n' +
 				' */\n' +
-				validAttachLink,
+				validConsoleWarn,
 			errors: [
 				{ messageId: 'missingErrorAnnotation' }
 			]
