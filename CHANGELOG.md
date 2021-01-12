@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.2.0](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.1.0...v1.2.0) (2021-01-12)
+
+### Features
+
+* Added a rule that disallows direct imports of packages that belong to CKEditor 5 DLL. Closes [ckeditor/ckeditor5#8581](https://github.com/ckeditor/ckeditor5/issues/8581). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/7fe7d661b85b8e46e182dad084a5a69294510837))
+
+
 ## [1.1.0](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.0.0...v1.1.0) (2020-09-09)
 
 ### Features
