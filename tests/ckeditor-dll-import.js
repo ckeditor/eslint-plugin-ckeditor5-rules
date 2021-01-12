@@ -5,7 +5,6 @@
 
 'use strict';
 
-const path = require( 'path' );
 const RuleTester = require( 'eslint' ).RuleTester;
 const ckeditorDllImport = require( '../lib/rules/ckeditor-dll-import' );
 
@@ -41,30 +40,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDll
 		// CSS and SVG imports should not be checked.
 		'import \'@ckeditor/ckeditor5-basic-styles/theme/bold.css\';',
 		'import okIcon from \'@ckeditor/ckeditor5-core/theme/icons/ok.svg\';',
-
-		// Cross imports between DLL packages (Unix).
-		{
-			code: 'import Plugin from \'@ckeditor/ckeditor5-core/src/plugin\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-engine/src/position.js'
-		},
-
-		// Cross imports between DLL packages (Windows).
-		{
-			code: 'import Plugin from \'@ckeditor/ckeditor5-core/src/plugin\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-engine', 'src', 'position.js' )
-		},
-
-		// Imports between non-DLL packages (Unix).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-image/src/image.js'
-		},
-
-		// Imports between non-DLL packages (Windows).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-image', 'src', 'image.js' )
-		}
 	],
 	invalid: [
 		{
@@ -75,6 +50,16 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDll
 		{
 			code: 'import { Plugin } from \'@ckeditor/ckeditor5-core/src/index\';',
 			output: 'import { Plugin } from \'ckeditor5/src/core\';',
+			errors: [ importError ]
+		},
+		{
+			code: 'import Plugin, { FooBar } from \'@ckeditor/ckeditor5-core/src/plugin\';',
+			output: 'import { Plugin, FooBar } from \'ckeditor5/src/core\';',
+			errors: [ importError ]
+		},
+		{
+			code: 'import Plugin, { FooBar, Bar } from \'@ckeditor/ckeditor5-core/src/plugin\';',
+			output: 'import { Plugin, FooBar, Bar } from \'ckeditor5/src/core\';',
 			errors: [ importError ]
 		}
 	]
