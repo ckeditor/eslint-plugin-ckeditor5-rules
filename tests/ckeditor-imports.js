@@ -7,7 +7,7 @@
 
 const path = require( 'path' );
 const RuleTester = require( 'eslint' ).RuleTester;
-const ckeditorDllImport = require( '../lib/rules/ckeditor-dll-import' );
+const ckeditorImports = require( '../lib/rules/ckeditor-imports' );
 
 const DLL_IMPORT_ERROR = {
 	message: 'Imports of packages that belong to CKEditor 5 DLL should be done using the "ckeditor5" package.'
@@ -33,7 +33,7 @@ const ruleTester = new RuleTester( {
 	}
 } );
 
-ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDllImport, {
+ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImports, {
 	valid: [
 		// Expected imports.
 		'import { Plugin } from \'ckeditor5/src/core\';',
@@ -178,7 +178,7 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDll
 // The code below checks whether an error was reported if the configuration for the plugin is missing.
 ( ruleTester => {
 	try {
-		ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDllImport, {
+		ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImports, {
 			valid: [
 				'import { Plugin } from \'ckeditor5/src/core\';'
 			],
@@ -186,8 +186,8 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-dll-import', ckeditorDll
 			invalid: [ {} ]
 		} );
 	} catch ( err ) {
-		const errorMessage = 'Error while loading rule \'eslint-plugin-ckeditor5-rules/ckeditor-dll-import\': ' +
-			'The "ckeditor5-rules/ckeditor-dll-import" rule requires additional configuration passed as "settings.dllPackages" ' +
+		const errorMessage = 'Error while loading rule \'eslint-plugin-ckeditor5-rules/ckeditor-imports\': ' +
+			'The "ckeditor5-rules/ckeditor-imports" rule requires additional configuration passed as "settings.dllPackages" ' +
 			'in the config file.\nOccurred while linting <input>';
 
 		if ( errorMessage !== err.message ) {
