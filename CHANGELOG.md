@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## [1.2.1](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.0...v1.2.1) (2021-01-14)
+
+### Bug fixes
+
+* Extended the `ckeditor5-rules/ckeditor-imports` rule. Now the imports listed below are allowed:. ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/d17a849db1bef7992770f9e698a4cba0a9266322))
+
+  - from 3rd party things,
+  - directly from within the same package,
+  - via `@ckeditor/ckeditor5-*` format from DLL package,
+  - via `ckeditor5/src/*` format for non-DLL package.
+
+  Imports non-DLL packages are not allowed. Those rules apply to JS, CSS, and SVG files.
+* Renamed the rule from `ckeditor5-rules/ckeditor-dll-import` to `ckeditor5-rules/ckeditor-imports`. Closes [ckeditor/ckeditor5#8824](https://github.com/ckeditor/ckeditor5/issues/8824). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/d17a849db1bef7992770f9e698a4cba0a9266322))
+
+
 ## [1.2.0](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.1.0...v1.2.0) (2021-01-12)
 
 ### Features
