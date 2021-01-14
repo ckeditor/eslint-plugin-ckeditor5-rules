@@ -7,4 +7,4 @@
 
 require( './ckeditor-error-messages' );
 require( './no-relative-imports' );
-require( './ckeditor-dll-import' );
+require( './ckeditor-imports' );
