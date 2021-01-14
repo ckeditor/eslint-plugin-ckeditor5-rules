@@ -10,11 +10,11 @@ const RuleTester = require( 'eslint' ).RuleTester;
 const ckeditorImports = require( '../lib/rules/ckeditor-imports' );
 
 const DLL_IMPORT_ERROR = {
-	message: 'Imports of packages that belong to CKEditor 5 DLL should be done using the "ckeditor5" package.'
+	message: 'Imports from DLL packages must be done using the "ckeditor5" package.'
 };
 
 const MIXED_IMPORTS_ERROR = {
-	message: 'Imports between DLL and non-DLL packages are disallowed.'
+	message: 'Imports from a non-DLL package are not allowed.'
 };
 
 const ruleTester = new RuleTester( {
