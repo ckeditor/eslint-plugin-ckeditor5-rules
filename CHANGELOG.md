@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.2.2](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.1...v1.2.2) (2021-01-28)
+
+### Other changes
+
+* Allow importing non-DLL packages. Closes [ckeditor/ckeditor5#8896](https://github.com/ckeditor/ckeditor5/issues/8896). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/facb8edd86596844d736bfd7605d2ac8f3c4ccb6))
+
+
 ## [1.2.1](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.0...v1.2.1) (2021-01-14)
 
 ### Bug fixes
