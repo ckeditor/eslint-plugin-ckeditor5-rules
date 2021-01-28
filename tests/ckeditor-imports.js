@@ -13,10 +13,6 @@ const DLL_IMPORT_ERROR = {
 	message: 'Imports from DLL packages must be done using the "ckeditor5" package.'
 };
 
-const MIXED_IMPORTS_ERROR = {
-	message: 'Imports from a non-DLL package are not allowed.'
-};
-
 const ruleTester = new RuleTester( {
 	parserOptions: {
 		sourceType: 'module',
@@ -52,6 +48,52 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 		{
 			code: 'import Plugin from \'@ckeditor/ckeditor5-core/src/plugin\';',
 			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-engine', 'src', 'position.js' )
+		},
+
+		// Imports between non-DLL packages (Unix).
+		{
+			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-image/src/image.js'
+		},
+
+		// Imports between non-DLL packages (Windows).
+		{
+			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-image', 'src', 'image.js' )
+		},
+
+		// Imports non-DLL package from DLL package (Unix).
+		{
+			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js'
+		},
+
+		// Imports non-DLL package from DLL package (Windows).
+		{
+			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+		},
+
+		// CSS & SVG imports between DLL and non-DLL packages aren't allowed (Unix).
+		{
+			code: 'import \'@ckeditor/ckeditor5-basic-styles/theme/bold.css\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js'
+		},
+
+		{
+			code: 'import okIcon from \'@ckeditor/ckeditor5-basic-styles/theme/icons/ok.svg\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js'
+		},
+
+		// CSS & SVG imports between DLL and non-DLL packages aren't allowed (Windows).
+		{
+			code: 'import \'@ckeditor/ckeditor5-basic-styles/theme/bold.css\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+		},
+
+		{
+			code: 'import okIcon from \'@ckeditor/ckeditor5-basic-styles/theme/icons/ok.svg\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
 		}
 	],
 	invalid: [
@@ -79,34 +121,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 			errors: [ DLL_IMPORT_ERROR ]
 		},
 
-		// Imports between non-DLL packages (Unix).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-image/src/image.js',
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
-		// Imports between non-DLL packages (Windows).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-image', 'src', 'image.js' ),
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
-		// Imports non-DLL package from DLL package (Unix).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js',
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
-		// Imports non-DLL package from DLL package (Windows).
-		{
-			code: 'import Bold from \'@ckeditor/ckeditor5-basic-styles/src/bold\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
 		// Imports DLL package from non-DLL package (Unix).
 		{
 			code: 'import Plugin from \'@ckeditor/ckeditor5-core/src/plugin\';',
@@ -123,19 +137,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 			errors: [ DLL_IMPORT_ERROR ]
 		},
 
-		// CSS & SVG imports between DLL and non-DLL packages aren't allowed (Unix).
-		{
-			code: 'import \'@ckeditor/ckeditor5-basic-styles/theme/bold.css\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js',
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
-		{
-			code: 'import okIcon from \'@ckeditor/ckeditor5-basic-styles/theme/icons/ok.svg\';',
-			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-core/src/plugin.js',
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
 		// Fixer tries to fix JS imports only.
 		{
 			code: 'import \'@ckeditor/ckeditor5-core/theme/editor.css\';',
@@ -146,19 +147,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 			code: 'import okIcon from \'@ckeditor/ckeditor5-core/theme/icons/ok.svg\';',
 			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-basic-styles/src/bold.js',
 			errors: [ DLL_IMPORT_ERROR ]
-		},
-
-		// CSS & SVG imports between DLL and non-DLL packages aren't allowed (Windows).
-		{
-			code: 'import \'@ckeditor/ckeditor5-basic-styles/theme/bold.css\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
-			errors: [ MIXED_IMPORTS_ERROR ]
-		},
-
-		{
-			code: 'import okIcon from \'@ckeditor/ckeditor5-basic-styles/theme/icons/ok.svg\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
-			errors: [ MIXED_IMPORTS_ERROR ]
 		},
 
 		// Fixer tries to fix JS imports only.
