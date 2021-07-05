@@ -14,6 +14,8 @@ const validJSDoc = '/**\n' +
 	' */\n';
 
 const validThrow = 'throw new CKEditorError( \'method-id-is-kebab\', this );\n';
+const validConsoleWarn = 'logWarning( \'method-id-is-kebab\' );\n';
+const validConsoleError = 'logError( \'method-id-is-kebab\' );\n';
 
 const ruleTester = new RuleTester( { parserOptions: { sourceType: 'module', ecmaVersion: 2018 } } );
 ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require( '../lib/rules/ckeditor-error-message' ), {
@@ -45,7 +47,23 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 		' *\n' +
 		' * @error unexpected-error\n' +
 		' */\n' +
-		'const error = new CKEditorError( err.message, context );\n'
+		'const error = new CKEditorError( err.message, context );\n',
+
+		validJSDoc + validConsoleWarn,
+
+		// Annotation in other place in the source code (before).
+		validJSDoc +
+		'if ( fooBar ) {\n' +
+		'\t' + validConsoleWarn +
+		'}' +
+
+		validJSDoc + validConsoleError,
+
+		// Annotation in other place in the source code (before).
+		validJSDoc +
+		'if ( fooBar ) {\n' +
+		'\t' + validConsoleError +
+		'}'
 	],
 	invalid: [
 		// Deprecated message id with a semicolon after error id.
@@ -85,7 +103,6 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 				{ messageId: 'invalidMessageFormat' }
 			]
 		},
-		// No @error clause.
 		{
 			code:
 				'/**\n' +
@@ -106,6 +123,38 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-error-message', require(
 				' * @error some-other-error\n' +
 				' */\n' +
 				'throw new CKEditorError( \'method-id-is-kebab\', this );\n',
+			errors: [
+				{ messageId: 'missingErrorAnnotation' }
+			]
+		},
+
+		// Deprecated message id with a semicolon after error id.
+		{
+			code: validJSDoc +
+				'logWarning( \'method-id-is-kebab: Missing item.\' );\n',
+			output: validJSDoc + validConsoleWarn,
+			errors: [
+				{ messageId: 'invalidMessageFormat' }
+			]
+		},
+
+		// Deprecated message id with a semicolon after error id.
+		{
+			code: validJSDoc +
+				'logError( \'method-id-is-kebab: Missing item.\' );\n',
+			output: validJSDoc + validConsoleError,
+			errors: [
+				{ messageId: 'invalidMessageFormat' }
+			]
+		},
+
+		// No @error clause.
+		{
+			code:
+				'/**\n' +
+				' * Missing item.\n' +
+				' */\n' +
+				validConsoleWarn,
 			errors: [
 				{ messageId: 'missingErrorAnnotation' }
 			]
