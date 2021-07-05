@@ -13,6 +13,10 @@ const DLL_IMPORT_ERROR = {
 	message: 'Imports from DLL packages must be done using the "ckeditor5" package.'
 };
 
+const CKEDITOR5_INVALID_IMPORT = {
+	message: 'Imports from the `ckeditor5` package must use the `src/` directory.'
+};
+
 const ruleTester = new RuleTester( {
 	parserOptions: {
 		sourceType: 'module',
@@ -159,6 +163,18 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 			code: 'import okIcon from \'@ckeditor/ckeditor5-core/theme/icons/ok.svg\';',
 			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-basic-styles', 'src', 'bold.js' ),
 			errors: [ DLL_IMPORT_ERROR ]
+		},
+
+		// Importing from other directories than `src/` from the `ckeditor5` package.
+		{
+			code: 'import \'ckeditor5/packages/ckeditor5-ui/theme/components/responsive-form/responsiveform.css\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-basic-styles/src/bold.js',
+			errors: [ CKEDITOR5_INVALID_IMPORT ]
+		},
+		{
+			code: 'import \'ckeditor5/packages/ckeditor5-ui/theme/components/responsive-form/responsiveform.css\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-basic-styles', 'src', 'bold.js' ),
+			errors: [ CKEDITOR5_INVALID_IMPORT ]
 		}
 	]
 } );
