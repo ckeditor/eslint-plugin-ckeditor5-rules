@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.2.3](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.2...v1.2.3) (2021-07-05)
+
+### Bug fixes
+
+* Disallow importing from other directories than "src/" when importing from the "ckeditor5" package. Closes [ckeditor/ckeditor5#10030](https://github.com/ckeditor/ckeditor5/issues/10030). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/d12074249190619d1af94bc80844bd74f32865d2))
+
+
 ## [1.2.2](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.1...v1.2.2) (2021-01-28)
 
 ### Other changes
