@@ -17,6 +17,10 @@ const CKEDITOR5_INVALID_IMPORT = {
 	message: 'Imports from the `ckeditor5` package must use the `src/` directory.'
 };
 
+const DLL_USE_FULL_NAME_IMPORT = {
+	message: 'Imports between DLL packages must use full package name.'
+};
+
 const ruleTester = new RuleTester( {
 	parserOptions: {
 		sourceType: 'module',
@@ -175,6 +179,18 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 			code: 'import \'ckeditor5/packages/ckeditor5-ui/theme/components/responsive-form/responsiveform.css\';',
 			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-basic-styles', 'src', 'bold.js' ),
 			errors: [ CKEDITOR5_INVALID_IMPORT ]
+		},
+
+		// Importing DLL package by DLL package without using its full names.
+		{
+			code: 'import { Plugin } from \'ckeditor5/src/core\';',
+			filename: '/Users/Workspace/ckeditor/ckeditor5/packages/ckeditor5-widget/src/plugin.js',
+			errors: [ DLL_USE_FULL_NAME_IMPORT ]
+		},
+		{
+			code: 'import { Plugin } from \'ckeditor5/src/core\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-widget', 'src', 'plugin.js' ),
+			errors: [ DLL_USE_FULL_NAME_IMPORT ]
 		}
 	]
 } );
