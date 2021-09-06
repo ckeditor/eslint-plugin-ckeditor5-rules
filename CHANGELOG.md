@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.2.4](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.3...v1.2.4) (2021-09-06)
+
+### Other changes
+
+* An import between DLL packages must use the full name of the imported package. Closes [ckeditor/ckeditor5#10375](https://github.com/ckeditor/ckeditor5/issues/10375). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/85bcfd7ae095b5755eb5061c6d63b4fdc6d7d398))
+
+
 ## [1.2.3](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.2...v1.2.3) (2021-07-05)
 
 ### Bug fixes
