@@ -194,24 +194,3 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImport
 		}
 	]
 } );
-
-// The code below checks whether an error was reported if the configuration for the plugin is missing.
-( ruleTester => {
-	try {
-		ruleTester.run( 'eslint-plugin-ckeditor5-rules/ckeditor-imports', ckeditorImports, {
-			valid: [
-				'import { Plugin } from \'ckeditor5/src/core\';'
-			],
-			// An empty test case must be specified.
-			invalid: [ {} ]
-		} );
-	} catch ( err ) {
-		const errorMessage = 'Error while loading rule \'eslint-plugin-ckeditor5-rules/ckeditor-imports\': ' +
-			'The "ckeditor5-rules/ckeditor-imports" rule requires additional configuration passed as "settings.dllPackages" ' +
-			'in the config file.\nOccurred while linting <input>';
-
-		if ( errorMessage !== err.message ) {
-			throw err;
-		}
-	}
-} )( new RuleTester( { parserOptions: { sourceType: 'module', ecmaVersion: 2018 } } ) );
