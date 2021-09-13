@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.2.5](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.4...v1.2.5) (2021-09-13)
+
+### Other changes
+
+* [CKEditor 5 core DLL packages](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/dll-builds.html) are now specified in the `ckeditor-imports` rule instead of obtained from the configuration file. ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/9f59a1f69d365a6822a76e6b2b49cfaf7a711e28))
+
+
 ## [1.2.4](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.3...v1.2.4) (2021-09-06)
 
 ### Other changes
