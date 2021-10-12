@@ -5,6 +5,12 @@
 
 'use strict';
 
-require( './ckeditor-error-messages' );
-require( './no-relative-imports' );
-require( './ckeditor-imports' );
+const fs = require( 'fs' );
+
+const tests = fs.readdirSync( __dirname ).filter( test => {
+    return test !== 'index.js';
+} );
+
+for ( const test of tests ) {
+    require( `./${ test }` );
+}
