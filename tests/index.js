@@ -8,9 +8,9 @@
 const fs = require( 'fs' );
 
 const tests = fs.readdirSync( __dirname ).filter( test => {
-    return test !== 'index.js';
+	return test !== 'index.js';
 } );
 
 for ( const test of tests ) {
-    require( `./${ test }` );
+	require( `./${ test }` );
 }
