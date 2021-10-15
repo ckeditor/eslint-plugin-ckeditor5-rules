@@ -47,16 +47,23 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/no-cross-package-imports', requir
 		// Cross package imports in allowed package
 		{
 			code: 'import { toArray } from \'ckeditor5/src/utils\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
-		},
-		// Other file formats
-		{
-			code: 'import { rule } from \'@ckeditor/ckeditor5-utils/theme/example/component.css\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
 		},
 		{
-			code: 'import { pattern } from \'@ckeditor/ckeditor5-utils/theme/example/component.svg\';',
-			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+			code: 'import toArray from \'ckeditor5/src/utils\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import { toArray } from \'@ckeditor/ckeditor5-utils\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import toArray from \'@ckeditor/ckeditor5-utils/src/toarray\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
 		},
 
 		/**
@@ -83,16 +90,23 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/no-cross-package-imports', requir
 		// Cross package imports in allowed package
 		{
 			code: 'import { toArray } from \'ckeditor5/src/utils\';',
-			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
-		},
-		// Other file formats
-		{
-			code: 'import { rule } from \'@ckeditor/ckeditor5-utils/theme/example/component.css\';',
-			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
 		},
 		{
-			code: 'import { pattern } from \'@ckeditor/ckeditor5-utils/theme/example/component.svg\';',
-			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' )
+			code: 'import toArray from \'ckeditor5/src/utils\';',
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import { toArray } from \'@ckeditor/ckeditor5-utils\';',
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import toArray from \'@ckeditor/ckeditor5-utils/src/toarray\';',
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-core', 'src', 'plugin.js' ),
+			errors: [ importError ]
 		}
 	],
 	invalid: [
@@ -120,6 +134,17 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/no-cross-package-imports', requir
 			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
 			errors: [ importError ]
 		},
+		// Other file formats
+		{
+			code: 'import { rule } from \'@ckeditor/ckeditor5-utils/theme/example/component.css\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import { pattern } from \'@ckeditor/ckeditor5-utils/theme/example/component.svg\';',
+			filename: path.win32.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
 
 		/**
 		 * Unix style path
@@ -142,6 +167,17 @@ ruleTester.run( 'eslint-plugin-ckeditor5-rules/no-cross-package-imports', requir
 		},
 		{
 			code: 'import toArray from \'@ckeditor/ckeditor5-utils/src/toarray\';',
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		// Other file formats
+		{
+			code: 'import { rule } from \'@ckeditor/ckeditor5-utils/theme/example/component.css\';',
+			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
+			errors: [ importError ]
+		},
+		{
+			code: 'import { pattern } from \'@ckeditor/ckeditor5-utils/theme/example/component.svg\';',
 			filename: path.posix.join( 'C:', 'Workspace', 'ckeditor', 'ckeditor5', 'packages', 'ckeditor5-watchdog', 'src', 'plugin.js' ),
 			errors: [ importError ]
 		}
