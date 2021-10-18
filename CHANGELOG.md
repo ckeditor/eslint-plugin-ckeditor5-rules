@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## [1.3.0](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.5...v1.3.0) (2021-10-18)
+
+### Features
+
+* Created a new rule (`ckeditor5-rules/no-cross-package-imports`) that disallows importing modules from CKEditor 5 packages. Closes [ckeditor/ckeditor5#9318](https://github.com/ckeditor/ckeditor5/issues/9318). ([commit](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/commit/d588b8c2da00a8c8b268b08c544fcfe9c2e9d35d))
+
+
 ## [1.2.5](https://github.com/ckeditor/eslint-plugin-ckeditor5-rules/compare/v1.2.4...v1.2.5) (2021-09-13)
 
 ### Other changes
