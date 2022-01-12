@@ -11,7 +11,7 @@
     "eslintplugin"
   ],
   "devDependencies": {
-    "@ckeditor/ckeditor5-dev-env": "^23.5.1",
+    "@ckeditor/ckeditor5-dev-env": "^27.4.0",
     "eslint": "^7.0.0",
     "eslint-config-ckeditor5": "^3.0.0"
   },
