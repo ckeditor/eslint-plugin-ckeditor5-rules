@@ -23,7 +23,15 @@ Configure ESLint with a `.eslintrc` file using the following contents:
 		'ckeditor5-rules' // Add the plugin to the linter.
 	],
 	rules: {
-		'ckeditor5-rules/no-relative-imports': 'error'
+		'ckeditor5-rules/no-relative-imports': 'error',
+		'ckeditor5-rules/license-header': [ 'error', {
+			headerLines: [
+				'/**',
+				' * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.',
+				' * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license',
+				' */'
+			]
+		} ]
 		// ...
 	}
 	// ...
@@ -42,6 +50,23 @@ import Position from '../../ckeditor5-engine/src/model/position';
 
 // Will be fix to: 
 import Position from '@ckeditor/ckeditor5-engine/src/model/position';
+```
+
+### license-header
+
+This rule checks if each file starts with proper `@license` block comment. It requires configuration:
+
+```js
+rules: {
+	'ckeditor5-rules/license-header': [ 'error', {
+		headerLines: [
+			'/**',
+			' * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.',
+			' * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license',
+			' */'
+		]
+	} ]
+}
 ```
 
 ## Changelog
