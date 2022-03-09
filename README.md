@@ -1,6 +1,10 @@
 CKEditor 5 ESLint Plugins
 =========================
 
+<h3 align=center>⚠⚠ This repository was moved ⚠⚠</h3>
+
+<p align=center>The package was moved to <a href="https://github.com/ckeditor/ckeditor5-linters-config/tree/master/packages">the <code>ckeditor5-linters-config</code> mono-repository</a>.</p>
+
 [![Build Status](https://app.travis-ci.com/ckeditor/eslint-plugin-ckeditor5-rules.svg?branch=master)](https://app.travis-ci.com/ckeditor/eslint-plugin-ckeditor5-rules)
 
 A set of plugins used by the [CKEditor 5](https://ckeditor.com) team for [Eslint](https://eslint.org/) 
